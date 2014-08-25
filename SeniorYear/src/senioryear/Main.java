@@ -3,7 +3,6 @@ public class Main {
     public static void main(String[] args) {
         Node first = null;
         Info earth = null;
-        Edit edit = new Edit();
         
         
         
@@ -18,7 +17,7 @@ public class Main {
         print("8- Edit");
         
         //one
-        first = edit.insertAtEnd(first);
+        first = Edit.insertAtEnd(first);
         print(first.getPlanet() + "");
         
     }

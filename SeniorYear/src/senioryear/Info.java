@@ -25,7 +25,7 @@ public class Info {
     
     @Override
     public String toString() {
-        return name + "is the" + placed(place) + "planet from the sun";
+        return name + " is the " + placed(place) + " planet from the sun";
     }
     
     private String placed(int i) {
@@ -33,7 +33,7 @@ public class Info {
             case 1:return "1st";
             case 2:return "2nd";
             case 3:return "3rd";
-            default:return i+ "st";
+            default:return i+ "th";
         }
     }
     
