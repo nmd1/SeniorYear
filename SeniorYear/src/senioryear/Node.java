@@ -8,11 +8,11 @@ public class Node {
         
     }
     
-    public void setNode(Info pl) {
-        planet = pl;
+    public void setNext(Node p) {
+        next = p;
     }
     
-    public Node getNode() {
+    public Node getNext() {
         return next;
     }
     
@@ -20,7 +20,7 @@ public class Node {
         return planet;
     }
     
-    public void setPlanet(Info p) {
-        planet = p;
+    public void setPlanet(Info plan) {
+        planet = plan;
     }
 }

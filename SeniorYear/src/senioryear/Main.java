@@ -1,7 +1,13 @@
 package senioryear;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Node first = null;
+        mainProgram();
+    }
+    public static void mainProgram() {
+        Node BananaPeel = null;
         Info earth = null;
         
         
@@ -16,15 +22,41 @@ public class Main {
         print("7- Sort");
         print("8- Edit");
         
-        //one
-        first = Edit.insertAtEnd(first);
-        print(first.getPlanet() + "");
+        Scanner s = new Scanner(System.in);
+        int choice = s.nextInt();
         
+        switch(choice) {
+            case 1:
+                BananaPeel = Edit.insertAtEnd(BananaPeel);
+                print(BananaPeel.getPlanet() + "");
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            default:
+                print("ERROR 1: Did not understand input");
+                break;
+                
+        }
     }
-
+    
     public static void print(String s) {
         System.out.println(s);
     }
+
+
+
 } 
 
 
