@@ -21,8 +21,9 @@ public class Edit {
         newPlanet.setName(s.nextLine());
         System.out.println("Number from sun: ");
         newPlanet.setPlace(s.nextInt());
+        //add two more fields
         
-        newNode.setPlanet(newPlanet);
+        newNode.setPlanet(newPlanet); //placed into node
         
         if(p == null) {
             p = newNode;
@@ -44,7 +45,7 @@ public class Edit {
     }
     
     public Node insertAnywhere(Node p) {
-        return null;
+        return p;
     }
     
     public void delete() {
@@ -55,7 +56,7 @@ public class Edit {
         
     }
     
-    public void print(Node p){
+    public static void print(Node p){
         while(p != null) {
             p = p.getNext();
             System.out.println(p.getPlanet().toString());
