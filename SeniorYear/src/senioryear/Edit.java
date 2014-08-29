@@ -10,17 +10,25 @@ public class Edit {
         
     }
     
-    public static Node insertAtEnd(Node p) { //p represents the entire list
-        //if empty assign p to node else assign p at end of list
-        Node newNode = new Node();
-        
-        Scanner s = new Scanner(System.in);
+    private static Info createNewPlanet() {
         Info newPlanet = new Info();
-        
+        Scanner s = new Scanner(System.in);
         System.out.println("Name of Planet: ");
         newPlanet.setName(s.nextLine());
         System.out.println("Number from sun: ");
         newPlanet.setPlace(s.nextInt());
+        System.out.println("Size of planet (in Kg): ");
+        newPlanet.setSize(s.nextInt());
+        System.out.println("Is there Life? (True/False): ");
+        newPlanet.setLife(s.nextBoolean());
+        return newPlanet;
+    }
+    public static Node insertAtEnd(Node p) { //p represents the entire list
+        //if empty assign p to node else assign p at end of list
+        Node newNode = new Node();
+        Info newPlanet = createNewPlanet();
+        
+        
         //add two more fields
         
         newNode.setPlanet(newPlanet); //placed into node
@@ -44,7 +52,38 @@ public class Edit {
         return p;
     }
     
-    public Node insertAnywhere(Node p) {
+    public static Node insertAnywhere(Node p) {
+        Node newNode = new Node();
+        Node q = new Node();
+        Info newPlanet = createNewPlanet();
+        
+        newNode.setPlanet(newPlanet);
+        
+        Scanner s = new Scanner(System.in);
+        System.out.println("Insert This new Planet after which planet?: ");
+        String search = s.next();
+        
+        
+        while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
+            q = q.getNext();
+        }
+        if(q.getNext().getPlanet().getName().equalsIgnoreCase(search)) {
+            //found! now put the node here
+            newNode.setNext(q.getNext());
+            q.setNext(newNode);
+        } else {
+            System.out.println("ERROR 404: Not Found");
+        }
+    
+        /*leave p where it is
+        //create dummy q
+        //advance q until we find what we looking for
+        //if you hit null, print an error or not found
+        //once q gets to the place where it needs to be, put new node there
+        //make the new node point to the next thing
+        //new node.setNext(q.getnext)
+        //then move the list to point to new node
+        q.setNext(newNode)*/
         return p;
     }
     
@@ -58,8 +97,8 @@ public class Edit {
     
     public static void print(Node p){
         while(p != null) {
-            p = p.getNext();
             System.out.println(p.getPlanet().toString());
+            p = p.getNext();
         }
     }
 }

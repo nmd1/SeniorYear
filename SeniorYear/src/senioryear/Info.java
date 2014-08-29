@@ -1,8 +1,10 @@
 package senioryear;
 
 public class Info {
-    public String name;
-    public int place;
+    private String name;
+    private int place;
+    private int size;
+    private boolean life;
     
     public Info() {
     }
@@ -15,12 +17,29 @@ public class Info {
         place = i;
     }
     
+    public void setSize(int mass) {
+        size = mass;
+    }
+    
+    public void setLife(boolean organic) {
+        life = organic;
+    }
+    
     public String getName() {
         return name;
     }
     
     public int getPlace() {
         return place;
+    }
+    
+    public int getSize() {
+        return size;
+    }
+    
+    public boolean getLife(){
+        //get a life man
+        return life;
     }
     
     @Override

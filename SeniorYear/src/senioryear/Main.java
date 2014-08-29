@@ -4,19 +4,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        
         mainProgram();
         
     }
     public static void mainProgram() {
         boolean looper = true;
-        
-        while(looper) {
         Node BananaPeel = null;
-        Info earth = null;
-        
-        
-        
-        
+        while(looper) {
+           
         print("1- Insert at end");
         print("2- Insert Anywhere");
         print("3- Print");
