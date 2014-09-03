@@ -32,6 +32,7 @@ public class Main {
                 print(BananaPeel.getPlanet() + "");
                 break;
             case 2:
+                BananaPeel = Edit.insertAnywhere(BananaPeel);
                 break;
             case 3:
                 Edit.print(BananaPeel);

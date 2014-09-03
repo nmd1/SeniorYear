@@ -44,7 +44,13 @@ public class Info {
     
     @Override
     public String toString() {
-        return name + " is the " + placed(place) + " planet from the sun";
+        if(life)
+        return name + " is the " + placed(place) + " planet from the sun. \n It" 
+                +" has a mass of " + size + " Kg and it has LIFE";
+        else
+            return name + " is the " + placed(place) + " planet from the sun. \n It" 
+                +" has a mass of " + size + " Kg and it contains no life ";
+            
     }
     
     private String placed(int i) {

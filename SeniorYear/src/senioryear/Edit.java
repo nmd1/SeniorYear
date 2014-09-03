@@ -50,8 +50,7 @@ public class Edit {
         }
         
         return p;
-    }
-    
+    } 
     public static Node insertAnywhere(Node p) {
         Node newNode = new Node();
         Node q = new Node();
@@ -59,18 +58,27 @@ public class Edit {
         
         newNode.setPlanet(newPlanet);
         
+        if(p == null) {
+            return insertAtEnd(p);
+        } else {
+            
+        
         Scanner s = new Scanner(System.in);
         System.out.println("Insert This new Planet after which planet?: ");
         String search = s.next();
         
         
         while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
+            //if the next node planet name does not equal the search name
             q = q.getNext();
         }
+        //now q equals the node whose planet name is the one we're looking for
         if(q.getNext().getPlanet().getName().equalsIgnoreCase(search)) {
+            //if the next planet name equals the search name
             //found! now put the node here
             newNode.setNext(q.getNext());
             q.setNext(newNode);
+            //node connection set up.
         } else {
             System.out.println("ERROR 404: Not Found");
         }
@@ -85,6 +93,7 @@ public class Edit {
         //then move the list to point to new node
         q.setNext(newNode)*/
         return p;
+        }
     }
     
     public void delete() {
