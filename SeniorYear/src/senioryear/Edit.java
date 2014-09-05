@@ -67,20 +67,26 @@ public class Edit {
         System.out.println("Insert This new Planet after which planet?: ");
         String search = s.next();
         
-        
-        while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
-            //if the next node planet name does not equal the search name
-            q = q.getNext();
+        if(!(q.getPlanet().getName().equalsIgnoreCase(search))) //if the first item does not equal the search
+            
+        do {
+            q = q.getNext();    
+        } while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))); {
+            //if the next node is not earth
+            
         }
+        //q ends up referencing earth.
+        
         //now q equals the node whose planet name is the one we're looking for
         if(q.getNext().getPlanet().getName().equalsIgnoreCase(search)) {
+            q = q.getNext();
             //if the next planet name equals the search name
-            //found! now put the node here
             newNode.setNext(q.getNext());
             q.setNext(newNode);
             //node connection set up.
         } else {
             System.out.println("ERROR 404: Not Found");
+            return p;
         }
     
         /*leave p where it is
