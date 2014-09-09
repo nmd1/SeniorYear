@@ -102,8 +102,65 @@ public class Edit {
         }
     }
     
-    public void delete() {
+    public Node delete(Node p) {    
+        int index = 1;
+        System.out.println("Search for Planet or for Planet Location?");
+        System.out.println("P for Planet, L for index location:");
+        Scanner t = new Scanner(System.in);
+        String testprime = t.next().toLowerCase();
+        char test = testprime.charAt(0);
+        Scanner s = new Scanner(System.in);
+        if(test == 'p'){
+            System.out.println("Insert a planet name to delete: ");
+            String PlanetSearch = s.next();
+            Node i = p;
+            while(i.getNext() != null) {
+                if(i.getPlanet().getName().equalsIgnoreCase(PlanetSearch)){
+                    index = i.getPlanet().getPlace();
+                } else {
+                    System.out.println("Error 404: Planet not found"); return p;
+                }
+            }
+        } else if(test == 'l') {
+            System.out.println("Insert the place of the planet (number): ");
+            index = s.nextInt();
+            Node i = p;
+            while(i.getNext() != null) {
+                if(i.getPlanet().getPlace() == index){
+                    index = i.getPlanet().getPlace();
+                    //it exists!
+                } else {
+                    System.out.println("Error 404: Planet not found"); return p;
+                }
+            }            
+        } else {
+            System.out.println("Error 43: Not Understood"); return p;
+        }
         
+        index = 1;//get rid of this for any of the above to be revelent
+        
+        //node stuffs//
+        if(index == 1) {
+           p = p.getNext(); 
+        } else {
+            Node r = p, q = p;
+            q = q.getNext(); //making it the leader
+            //loop until q finds the index
+            while(q.getPlanet().getPlace() != index) {
+                q = q.getNext();
+                r = r.getNext();
+            }
+            q.setNext(r.getNext());
+        }
+
+        //advance p 
+        //advance p again
+        //loop {
+        // advance p AND q
+        //when p hits the thing you want, stap loop
+        //}
+        //q.setNext(p.getNext())
+        return p;
     }
     
     public void edit() {
@@ -116,4 +173,26 @@ public class Edit {
             p = p.getNext();
         }
     }
+    public static void print(Node p, String s) {
+        Node q = p;
+
+        boolean flag = true;
+        System.out.print(s + "-->");
+        int count = 1;
+        while(flag) {
+            if(!(count % 4 == 0)) {
+                System.out.print("[ "+ q.getPlanet().getName().substring(0, 4) + "|" + " ]-->" );
+                
+                if(q.getNext() == null) {
+                    System.out.print("[Null]");
+                    flag = false;
+                    break;
+                }
+                q = q.getNext();
+            } else {
+                //System.out.println("[ "+ p.getPlanet().getName().substring(0, 4) + "]");
+            }
+        }
+    }
+    
 }

@@ -35,7 +35,8 @@ public class Main {
                 BananaPeel = Edit.insertAnywhere(BananaPeel);
                 break;
             case 3:
-                Edit.print(BananaPeel);
+              //Edit.print(BananaPeel);
+                Edit.print(BananaPeel, "BananaPeel");
                 break;
             case 4:
                 break;
