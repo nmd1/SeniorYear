@@ -36,17 +36,23 @@ public class Main {
                 break;
             case 3:
               //Edit.print(BananaPeel);
-                Edit.print(BananaPeel, "BananaPeel");
+                Edit.print(BananaPeel, "BananaPeel"); //for visual
+                //Edit.print(BananaPeel);//for paragraph
                 break;
             case 4:
+                Edit.count(BananaPeel);
                 break;
             case 5:
+                Edit.search(BananaPeel);
                 break;
             case 6:
+                BananaPeel = Edit.delete(BananaPeel);
                 break;
             case 7:
+                BananaPeel = Edit.sort(BananaPeel);
                 break;
             case 8:
+                BananaPeel = Edit.edit(BananaPeel);
                 break;
             default:
                 print("ERROR 1: Did not understand input");
@@ -95,7 +101,6 @@ public class Main {
     }
     
 } 
-
 
 //1. Create Node (and create Info Object)
 //2. Put it in the list at the end

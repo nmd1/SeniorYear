@@ -52,28 +52,39 @@ public class Edit {
         return p;
     } 
     public static Node insertAnywhere(Node p) {
+        if(p == null) {
+            return insertAtEnd(p);
+        } else {
         Node newNode = new Node();
         Node q = new Node();
+        
         Info newPlanet = createNewPlanet();
         
         newNode.setPlanet(newPlanet);
         
-        if(p == null) {
-            return insertAtEnd(p);
-        } else {
-            
         
+
         Scanner s = new Scanner(System.in);
-        System.out.println("Insert This new Planet after which planet?: ");
+        System.out.println("Insert This new Planet after which planet? (1 for first): ");
         String search = s.next();
         
-        if(!(q.getPlanet().getName().equalsIgnoreCase(search))) //if the first item does not equal the search
+        q = p;
+        
+        if(search.charAt(0) == '1'){
+            newNode.setNext(q.getNext());
+            q.setNext(newNode);
+            return p;
+        }
+        
+        if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if the first item does not equal the search
             
-        do {
-            q = q.getNext();    
-        } while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))); {
-            //if the next node is not earth
-            
+        //q = q.getNext();    
+        while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
+            q = q.getNext();
+        }
+            //if the next node is not earth   
+
+        
         }
         //q ends up referencing earth.
         
@@ -100,9 +111,8 @@ public class Edit {
         q.setNext(newNode)*/
         return p;
         }
-    }
-    
-    public Node delete(Node p) {    
+    }  
+    public static Node delete(Node p) {    
         int index = 1;
         System.out.println("Search for Planet or for Planet Location?");
         System.out.println("P for Planet, L for index location:");
@@ -114,12 +124,17 @@ public class Edit {
             System.out.println("Insert a planet name to delete: ");
             String PlanetSearch = s.next();
             Node i = p;
-            while(i.getNext() != null) {
+            boolean loop = true;
+            while(loop) {
+               //System.out.println(i.getPlanet().getName() + "<--->" + PlanetSearch);
                 if(i.getPlanet().getName().equalsIgnoreCase(PlanetSearch)){
                     index = i.getPlanet().getPlace();
+                    loop = false;
                 } else {
-                    System.out.println("Error 404: Planet not found"); return p;
+                    if(i.getNext() == null){ System.out.println("Error 404: Planet not found 1"); return p;}
                 }
+                
+                i = i.getNext(); 
             }
         } else if(test == 'l') {
             System.out.println("Insert the place of the planet (number): ");
@@ -130,15 +145,16 @@ public class Edit {
                     index = i.getPlanet().getPlace();
                     //it exists!
                 } else {
-                    System.out.println("Error 404: Planet not found"); return p;
+                    if(i.getNext() == null) {System.out.println("Error 404: Planet not found 2"); return p;}
                 }
+                i = i.getNext();
             }            
         } else {
             System.out.println("Error 43: Not Understood"); return p;
         }
         
-        index = 1;//get rid of this for any of the above to be revelent
-        
+        //index = 1;//get rid of this for any of the above to be revelent
+        //System.out.println(index);
         //node stuffs//
         if(index == 1) {
            p = p.getNext(); 
@@ -152,7 +168,7 @@ public class Edit {
             }
             q.setNext(r.getNext());
         }
-
+        // AS MR.BALCAR ABOUT THIS!!!!
         //advance p 
         //advance p again
         //loop {
@@ -162,9 +178,42 @@ public class Edit {
         //q.setNext(p.getNext())
         return p;
     }
-    
-    public void edit() {
+    public static Node search(Node p) {
+        return p;
+    }
+    public static Node count(Node p) {
+        return p;
+    }
+    public static Node sort(Node p) {
+        //bubble sort the methods
+        return p;
+    }
+    public static Node edit(Node p) {
+        if(p == null) {
+            System.out.println("Nothing to edit");
+            return p;
+        }
+        Node newNode = new Node();
+        Scanner s = new Scanner(System.in);
+        System.out.println("Which Planet do you want to edit?:");
+        String search = s.next();
+        Info newPlanet = createNewPlanet();
+        newNode.setPlanet(newPlanet);
         
+        Node q = p;
+        if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if it isn't the first one
+           while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
+            q = q.getNext();
+        } 
+        }
+        
+
+        q.getPlanet().setLife(newPlanet.getLife());
+        q.getPlanet().setName(newPlanet.getName());
+        q.getPlanet().setPlace(newPlanet.getPlace());
+        q.getPlanet().setSize(newPlanet.getSize());
+        
+        return p;
     }
     
     public static void print(Node p){
@@ -181,11 +230,10 @@ public class Edit {
         int count = 1;
         while(flag) {
             if(!(count % 4 == 0)) {
-                System.out.print("[ "+ q.getPlanet().getName().substring(0, 4) + "|" + " ]-->" );
+                System.out.print("[ "+ q.getPlanet().getName() + "|" + " ]-->" );
                 
                 if(q.getNext() == null) {
-                    System.out.print("[Null]");
-                    flag = false;
+                    System.out.println("[Null]");
                     break;
                 }
                 q = q.getNext();
