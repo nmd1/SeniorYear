@@ -3,11 +3,22 @@
 package senioryear;
 
 import java.util.Scanner;
+import java.util.*;
 
 public class Edit {
     
     public Edit() {
         
+    }
+    //DELETE THIS LATER
+    public static String generateString(Random rng, String characters, int length)
+    {
+    char[] text = new char[length];
+    for (int i = 0; i < length; i++)
+    {
+        text[i] = characters.charAt(rng.nextInt(characters.length()));
+    }
+    return new String(text);
     }
     
     private static Info createNewPlanet() {
@@ -23,16 +34,28 @@ public class Edit {
         newPlanet.setLife(s.nextBoolean());
         return newPlanet;
     }
+    public static Info createNewPlanet(String name, int i) {
+        Info newPlanet = new Info();
+        newPlanet.setName(name);
+        newPlanet.setPlace(i);
+        newPlanet.setSize((int)Math.pow(i, 2));
+        newPlanet.setLife(false);
+        return newPlanet;
+    }
     public static Node insertAtEnd(Node p) { //p represents the entire list
-        //if empty assign p to node else assign p at end of list
         Node newNode = new Node();
-        Info newPlanet = createNewPlanet();
-        
-        
-        //add two more fields
-        
+        Info newPlanet = new Info();
+        if(Main.planetDebug == false) {
+            newPlanet = createNewPlanet();
+        } else {
+            Random rand = new Random();
+            int pla = rand.nextInt(11);//between 0 and 10
+            newPlanet = createNewPlanet(generateString(rand, "abcdefghijk", 4), pla);
+        }
         newNode.setPlanet(newPlanet); //placed into node
         
+
+        //if empty assign p to node else assign p at end of list
         if(p == null) {
             p = newNode;
             //the new node is passed into the first node
@@ -71,8 +94,8 @@ public class Edit {
         q = p;
         
         if(search.charAt(0) == '1'){
-            newNode.setNext(q.getNext());
-            q.setNext(newNode);
+            newNode.setNext(p);
+            p = newNode;
             return p;
         }
         
@@ -214,8 +237,7 @@ public class Edit {
         q.getPlanet().setSize(newPlanet.getSize());
         
         return p;
-    }
-    
+    } 
     public static void print(Node p){
         while(p != null) {
             System.out.println(p.getPlanet().toString());
@@ -227,19 +249,14 @@ public class Edit {
 
         boolean flag = true;
         System.out.print(s + "-->");
-        int count = 1;
         while(flag) {
-            if(!(count % 4 == 0)) {
-                System.out.print("[ "+ q.getPlanet().getName() + "|" + " ]-->" );
+            System.out.print("[ "+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]-->" );
                 
-                if(q.getNext() == null) {
-                    System.out.println("[Null]");
-                    break;
-                }
-                q = q.getNext();
-            } else {
-                //System.out.println("[ "+ p.getPlanet().getName().substring(0, 4) + "]");
+            if(q.getNext() == null) {
+                System.out.println("[Null]");
+                break;
             }
+            q = q.getNext();
         }
     }
     
