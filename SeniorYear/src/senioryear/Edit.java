@@ -40,11 +40,11 @@ public class Edit {
                 debugcount = 2;
                 return newPlanet;
             } else if(debugcount == 2) {
-                newPlanet = createNewPlanet("second", pla + 1);
+                newPlanet = createNewPlanet("second", pla + 2);
                 debugcount = 3;
                 return newPlanet;
             } else if(debugcount == 3) {
-                newPlanet = createNewPlanet("third", pla + 2);
+                newPlanet = createNewPlanet("third", pla + 1);
                 debugcount = 100;
                 return newPlanet;
             } else {
@@ -261,45 +261,64 @@ public class Edit {
         return p;
     }
     public static Node sort(Node p) {
-        Date d = new Date();
-        System.out.println("Sorting...");
-        long start = d.getTime();
-        //The sort
-        
         //SEEING IF THE LIST IS EMPTY
         if(p == null) {
             System.out.println("No Sort Could be completed");
             return p;
         }
         
-        // COUNTING THE NUMBER OF ELEMENTS
-        Node c = p;
-        boolean loop = true;
-        int counter = 0;
+        System.out.println("Sorting...");
+        long start = System.nanoTime();
         
-        while(true) {
-            counter++; //start off with 1
-            if(c.getNext() == null) {
-                loop = false;
+        //SORT (insertion)
+        Node head = p;
+        if (head == null || head.next == null)
+            return head;
+ 
+        Node newHead = p;
+
+        Node pointer = head.next;
+
+        // loop through each element in the list
+        while (pointer != null) { //second still normal
+                // insert this element to the new list
+            Node innerPointer = newHead;
+            Node next = pointer.next;
+            if (pointer.getPlanet().getPlace() <= newHead.getPlanet().getPlace()) {
+                Node oldHead = newHead;
+                newHead = pointer;
+                newHead.next = oldHead;
             } else {
-                c = c.getNext(); 
+                while (innerPointer.next != null) { //in here
+                    if (pointer.getPlanet().getPlace() > innerPointer.getPlanet().getPlace() && pointer.getPlanet().getPlace() <= innerPointer.next.getPlanet().getPlace()) {
+                        Node oldNext = innerPointer.next;
+                        innerPointer.next = pointer;
+                        pointer.next = oldNext.next; //pointer.next = oldNext;
+                    } //within this loop
+
+                    innerPointer = innerPointer.next;
+                }
+
+                if (innerPointer.next == null && pointer.getPlanet().getPlace() > innerPointer.getPlanet().getPlace()) {
+                    innerPointer.next = pointer;
+                    pointer.next = null;
+                }
             }
-        } 
-        int count = counter;
-        int middle = counter / 2;
+
+            pointer = next;
+        }
+ 
+		
+        //END SORT
         
         
+        long end = System.nanoTime();
+        long templong = ((end - start) / 1000000000);
+        System.out.println("Sort Completed in " + (end - start) + " Nanoseconds \n(" + templong + " seconds)");
         
-        
-        
-        
-        
-        //End sort
-        long end = d.getTime();
-        System.out.println("Sort Completed in " + (end - start) + " Milliseconds");
-        
-        return p;
+        return newHead;
     }
+    
     public static Node edit(Node p) {
         if(p == null) {
             System.out.println("Nothing to edit");
