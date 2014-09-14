@@ -6,21 +6,12 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Edit {
-    
+    static int debugcount = 1; // DELETE THIS LATER
+    static Random rand = new Random();
+    static int pla = rand.nextInt((10 - 3) + 1) + 3;//between 3 and 10
     public Edit() {
         
-    }
-    //DELETE THIS LATER
-    public static String generateString(Random rng, String characters, int length)
-    {
-    char[] text = new char[length];
-    for (int i = 0; i < length; i++)
-    {
-        text[i] = characters.charAt(rng.nextInt(characters.length()));
-    }
-    return new String(text);
-    }
-    
+    }    
     private static Info createNewPlanet() {
         Info newPlanet = new Info();
         Scanner s = new Scanner(System.in);
@@ -42,21 +33,30 @@ public class Edit {
         newPlanet.setLife(false);
         return newPlanet;
     }
-    private static Info nodeOrNah(boolean b) {
+    private static Info nodeOrNah() {
         Info newPlanet = new Info();
-        if(b == false) {
-            newPlanet = createNewPlanet();
-        } else {
-            Random rand = new Random();
-            int pla = rand.nextInt(11);//between 0 and 10
-            newPlanet = createNewPlanet(generateString(rand, "abcdefghijk", 4), pla);
-        }
-        return newPlanet;
+            if(debugcount == 1) {
+                newPlanet = createNewPlanet("first", pla);
+                debugcount = 2;
+                return newPlanet;
+            } else if(debugcount == 2) {
+                newPlanet = createNewPlanet("second", pla + 1);
+                debugcount = 3;
+                return newPlanet;
+            } else if(debugcount == 3) {
+                newPlanet = createNewPlanet("third", pla + 2);
+                debugcount = 100;
+                return newPlanet;
+            } else {
+                newPlanet = createNewPlanet();
+                return newPlanet;
+            }
+        
     }
     public static Node insertAtEnd(Node p) { //p represents the entire list
         Node newNode = new Node();
-        Info newPlanet = new Info();
-        newPlanet = nodeOrNah(Main.planetDebug);
+        Info newPlanet = nodeOrNah();
+        //newPlanet = createNewPlanet();
         newNode.setPlanet(newPlanet); //placed into node
         
 
@@ -148,21 +148,26 @@ public class Edit {
         String testprime = t.next().toLowerCase();
         char test = testprime.charAt(0);
         Scanner s = new Scanner(System.in);
+        int counter = 0;
         if(test == 'p'){
             System.out.println("Insert a planet name to delete: ");
             String PlanetSearch = s.next();
             Node i = p;
             boolean loop = true;
+            
             while(loop) {
+                counter++; //starts on 1
                //System.out.println(i.getPlanet().getName() + "<--->" + PlanetSearch);
                 if(i.getPlanet().getName().equalsIgnoreCase(PlanetSearch)){
-                    index = i.getPlanet().getPlace();
+                    index = counter;
                     loop = false;
                 } else {
-                    if(i.getNext() == null){ System.out.println("Error 404: Planet not found 1"); return p;}
+                    if(i.getNext() == null){ 
+                    System.out.println("Error 404: Planet not found"); 
+                    return p;
+                    }
+                    i = i.getNext(); 
                 }
-                
-                i = i.getNext(); 
             }
         } else if(test == 'l') {
             System.out.println("Insert the place of the planet (number): ");
@@ -184,17 +189,21 @@ public class Edit {
         //index = 1;//get rid of this for any of the above to be revelent
         //System.out.println(index);
         //node stuffs//
+        counter = 1;
         if(index == 1) {
            p = p.getNext(); 
         } else {
-            Node r = p, q = p;
+            
+            Node j = p, q = p;
             q = q.getNext(); //making it the leader
+            counter++; //equals 2
             //loop until q finds the index
-            while(q.getPlanet().getPlace() != index) {
+            while(counter != index) {
                 q = q.getNext();
-                r = r.getNext();
+                j = j.getNext();
+                counter++;
             }
-            q.setNext(r.getNext());
+            j.setNext(q.getNext());
         }
         // AS MR.BALCAR ABOUT THIS!!!!
         //advance p 
@@ -207,13 +216,88 @@ public class Edit {
         return p;
     }
     public static Node search(Node p) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Insert a planet name to search: ");
+        String PlanetSearch = s.next();
+        Node q = p;
+        boolean loop = true;
+        int counter = 0;
+        while(loop) {
+            counter++; //start off with 1
+            if(q.getPlanet().getName().equalsIgnoreCase(PlanetSearch)) {
+                System.out.println(PlanetSearch + " is " + q.getPlanet().getPlace() 
+                        + " spots away from the sun and" +
+                        " has an index of " + counter);
+                loop = false;
+            } else {
+                if(q.getNext() == null){ 
+                System.out.println("Error 404: Planet not found"); 
+                return p;
+                }
+                q = q.getNext(); 
+            }
+        }
         return p;
     }
     public static Node count(Node p) {
+        Node q = p;
+        boolean loop = true;
+        int counter = 0;
+        
+        if(q == null) {
+            System.out.println("There are no Planets on this list");
+            return p;
+        }
+        while(loop) {
+            counter++; //start off with 1
+            if(q.getNext() == null) {
+                if(counter == 1) System.out.println("There is 1 planet on this List.");
+                else System.out.println("There are " + counter + " planets on this List.");
+                loop = false;
+            } else {
+                q = q.getNext(); 
+            }
+        }
         return p;
     }
     public static Node sort(Node p) {
-        //bubble sort the methods
+        Date d = new Date();
+        System.out.println("Sorting...");
+        long start = d.getTime();
+        //The sort
+        
+        //SEEING IF THE LIST IS EMPTY
+        if(p == null) {
+            System.out.println("No Sort Could be completed");
+            return p;
+        }
+        
+        // COUNTING THE NUMBER OF ELEMENTS
+        Node c = p;
+        boolean loop = true;
+        int counter = 0;
+        
+        while(true) {
+            counter++; //start off with 1
+            if(c.getNext() == null) {
+                loop = false;
+            } else {
+                c = c.getNext(); 
+            }
+        } 
+        int count = counter;
+        int middle = counter / 2;
+        
+        
+        
+        
+        
+        
+        
+        //End sort
+        long end = d.getTime();
+        System.out.println("Sort Completed in " + (end - start) + " Milliseconds");
+        
         return p;
     }
     public static Node edit(Node p) {
@@ -221,26 +305,88 @@ public class Edit {
             System.out.println("Nothing to edit");
             return p;
         }
-        Node newNode = new Node();
+        
         Scanner s = new Scanner(System.in);
         System.out.println("Which Planet do you want to edit?:");
-        String search = s.next();
-        Info newPlanet = createNewPlanet();
-        newNode.setPlanet(newPlanet);
+        String PlanetSearch = s.next();
         
         Node q = p;
-        if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if it isn't the first one
-           while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
-            q = q.getNext();
-        } 
+        
+        //search for it
+        boolean loop = true;
+        while(loop) {
+            if(q.getPlanet().getName().equalsIgnoreCase(PlanetSearch)) {
+                loop = false;
+            } else {
+                if(q.getNext() == null){ 
+                System.out.println("Error 404: Planet not found"); 
+                return p;
+                }
+                q = q.getNext(); 
+            }
         }
         
-
-        q.getPlanet().setLife(newPlanet.getLife());
-        q.getPlanet().setName(newPlanet.getName());
-        q.getPlanet().setPlace(newPlanet.getPlace());
-        q.getPlanet().setSize(newPlanet.getSize());
+        //now q equals the planet you were searching for
+        boolean edit = true;
         
+        while(edit) {
+            System.out.println("Name: " + q.getPlanet().getName());
+            System.out.println("Place: "+ q.getPlanet().getPlace());
+            System.out.println("Size: "+ q.getPlanet().getSize());
+            System.out.println("Has Life: " + q.getPlanet().getLife() + "\n");
+
+            System.out.println("1- Edit Entire Node");
+            System.out.println("2- Edit Planet Name");
+            System.out.println("3- Edit Planet Position");
+            System.out.println("4- Edit Planet Size");
+            System.out.println("5- Edit State of Life");
+            System.out.println("6- I made a mistake, get me out of here");
+
+            s = new Scanner(System.in);
+            int choice = 0;
+            try{
+                choice = s.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("I didn't understand your input");
+                System.out.println(e.getMessage());
+                choice = 7;
+            }
+
+            Scanner c = new Scanner(System.in);
+            edit = false;
+            switch(choice) {
+                case 1:
+                    Info newPlanet = createNewPlanet();
+                    q.setPlanet(newPlanet);
+                    break;
+                case 2:
+                    System.out.print("New Name: ");
+                    String name = c.next();
+                    q.getPlanet().setName(name);
+                    break;
+                case 3:
+                    System.out.print("New Position: ");
+                    int pos = c.nextInt();
+                    q.getPlanet().setPlace(pos);
+                    break;
+                case 4:
+                    System.out.print("New Size: ");
+                    int size = c.nextInt();
+                    q.getPlanet().setSize(size);
+                    break;
+                case 5:
+                    System.out.print("True or False- Does the Planet Harbor Life?: ");
+                    boolean life = c.nextBoolean();
+                    q.getPlanet().setLife(life);
+                    break;
+                case 6:
+                    break;
+                default:
+                    System.out.println("I did not understand you.");
+                    edit = true;
+                    break;
+            }
+        }
         return p;
     } 
     public static void print(Node p){
@@ -251,11 +397,15 @@ public class Edit {
     }
     public static void print(Node p, String s) {
         Node q = p;
-
+        
+        if(q == null) {
+            System.out.print("[Null]" );
+            return;
+        }
         boolean flag = true;
         System.out.print(s + "-->");
         while(flag) {
-            System.out.print("[ "+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]-->" );
+            System.out.print("["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]-->" );
                 
             if(q.getNext() == null) {
                 System.out.println("[Null]");

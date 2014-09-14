@@ -3,7 +3,6 @@ package senioryear;
 import java.util.Scanner;
 
 public class Main {
-    static boolean planetDebug = true;
     public static void main(String[] args) {
         
         mainProgram();
@@ -16,7 +15,6 @@ public class Main {
         BananaPeel = Edit.insertAtEnd(BananaPeel);
         BananaPeel = Edit.insertAtEnd(BananaPeel);
         BananaPeel = Edit.insertAtEnd(BananaPeel);
-        planetDebug = false;
         //end preset list for debugging
         while(looper) {
         
