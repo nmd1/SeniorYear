@@ -42,16 +42,21 @@ public class Edit {
         newPlanet.setLife(false);
         return newPlanet;
     }
-    public static Node insertAtEnd(Node p) { //p represents the entire list
-        Node newNode = new Node();
+    private static Info nodeOrNah(boolean b) {
         Info newPlanet = new Info();
-        if(Main.planetDebug == false) {
+        if(b == false) {
             newPlanet = createNewPlanet();
         } else {
             Random rand = new Random();
             int pla = rand.nextInt(11);//between 0 and 10
             newPlanet = createNewPlanet(generateString(rand, "abcdefghijk", 4), pla);
         }
+        return newPlanet;
+    }
+    public static Node insertAtEnd(Node p) { //p represents the entire list
+        Node newNode = new Node();
+        Info newPlanet = new Info();
+        newPlanet = nodeOrNah(Main.planetDebug);
         newNode.setPlanet(newPlanet); //placed into node
         
 
