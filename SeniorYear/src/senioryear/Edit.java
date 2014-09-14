@@ -313,8 +313,8 @@ public class Edit {
         
         
         long end = System.nanoTime();
-        long templong = ((end - start) / 1000000000);
-        System.out.println("Sort Completed in " + (end - start) + " Nanoseconds \n(" + templong + " seconds)");
+        
+        System.out.println("Sort Completed in " + (end - start) + " Nanoseconds");
         
         return newHead;
     }
