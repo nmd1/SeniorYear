@@ -1,7 +1,5 @@
-
+package senioryear;
 import java.util.Scanner;
-import senioryear.Info;
-import senioryear.Node;
 
 
 public class Utilities {
@@ -57,6 +55,8 @@ public class Utilities {
         }
         return p;
     }
+    
+    
     public static Node sort(Node p) {
         //SEEING IF THE LIST IS EMPTY
         if(p == null) {

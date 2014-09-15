@@ -25,7 +25,7 @@ public class Edit {
         newPlanet.setLife(s.nextBoolean());
         return newPlanet;
     }
-    public static Info createNewPlanet(String name, int i) {
+    private static Info createNewPlanet(String name, int i) {
         Info newPlanet = new Info();
         newPlanet.setName(name);
         newPlanet.setPlace(i);
@@ -104,12 +104,29 @@ public class Edit {
             return p;
         }
         
+        //test to see if it exists:
+        boolean loop = true;
+        Node j = p;
+        while(loop) {
+            if(j.getPlanet().getName().equalsIgnoreCase(search)) {
+                loop = false;
+            } else {
+                if(j.getNext() == null){ 
+                System.out.println("Error 404: Planet not found"); 
+                return p;
+                }
+                j = j.getNext(); 
+            }
+        }
+        
         if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if the first item does not equal the search
             
-        //q = q.getNext();    
+        //q = q.getNext();
+            
         while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
             q = q.getNext();
         }
+        
             //if the next node is not earth   
 
         
