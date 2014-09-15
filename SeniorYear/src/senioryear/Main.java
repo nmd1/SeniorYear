@@ -46,19 +46,19 @@ public class Main {
                     //Edit.print(BananaPeel);//for paragraph
                     break;
                 case 4:
-                    Edit.count(BananaPeel);
+                    Utilities.count(BananaPeel);
                     break;
                 case 5:
-                    Edit.search(BananaPeel);
+                    Utilities.search(BananaPeel);
                     break;
                 case 6:
                     BananaPeel = Edit.delete(BananaPeel);
                     break;
                 case 7:
-                    BananaPeel = Edit.sort(BananaPeel);
+                    BananaPeel = Utilities.sort(BananaPeel);
                     break;
                 case 8:
-                    BananaPeel = Edit.edit(BananaPeel);
+                    BananaPeel = Utilities.edit(BananaPeel);
                     break;
                 default:
                     print("ERROR 1: Did not understand input");
