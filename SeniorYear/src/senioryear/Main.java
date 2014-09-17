@@ -35,7 +35,6 @@ public class Main {
             switch(choice) {
                 case 1:
                     BananaPeel = Edit.insertAtEnd(BananaPeel);
-                    print(BananaPeel.getPlanet() + "");
                     break;
                 case 2:
                     BananaPeel = Edit.insertAnywhere(BananaPeel);
