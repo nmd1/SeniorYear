@@ -1,22 +1,22 @@
-package senioryear;
+package DoubleList;
 
 public class Node {
-    Info planet;
     Node next;
-        
-    public Node() {
-        
-    }
-    
-    public void setNext(Node p) {
-        next = p;
-    }
-    
+    Node previous;
+    Info planet;
     
     public Node getNext() {
         return next;
     }
-    
+    public void setNext(Node p) {
+        next = p;
+    }
+    public Node getPrevious() {
+        return previous;
+    }
+    public void setPrevious(Node p) {
+        previous = p;
+    }
     public Info getPlanet() {
         return planet;
     }
@@ -25,4 +25,4 @@ public class Node {
         planet = plan;
     }
 }
-//HEY Mr.BALCAR :D
+
