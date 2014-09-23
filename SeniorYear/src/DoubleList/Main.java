@@ -7,18 +7,19 @@ import senioryear.Utilities;
 
 public class Main {
     public static void main(String[] args) {
-        
+        System.out.println("asdfhasdkl;");
         mainProgram();
         
     }
     public static void mainProgram() {
         boolean looper = true;
-        Node BananaPeel = null;
+        Node pointer = null;
         //preset List for debugging
-        BananaPeel = Edit.insertAtEnd(BananaPeel);
-        BananaPeel = Edit.insertAtEnd(BananaPeel);
-        BananaPeel = Edit.insertAtEnd(BananaPeel);
+        pointer = Edit.insertAtEnd(pointer);
+        pointer = Edit.insertAtEnd(pointer);
+        pointer = Edit.insertAtEnd(pointer);
         //end preset list for debugging
+        
         while(looper) {
         
             
@@ -30,6 +31,7 @@ public class Main {
             print("6- Delete");
             print("7- Sort");
             print("8- Edit");
+            print("9- Print all");
             
 
             Scanner s = new Scanner(System.in);
@@ -38,31 +40,33 @@ public class Main {
 
             switch(choice) {
                 case 1:
-                    BananaPeel = Edit.insertAtEnd(BananaPeel);
+                    pointer = Edit.insertAtEnd(pointer);
                     break;
                 case 2:
-                    BananaPeel = Edit.insertAnywhere(BananaPeel);
+                    pointer = Edit.insertAnywhere(pointer);
                     break;
                 case 3:
                   //Edit.print(BananaPeel);
-                    Edit.print(BananaPeel); //for visual
+                    Edit.print(pointer); //for visual
                     //Edit.print(BananaPeel);//for paragraph
                     break;
                 case 4:
-                    Utilities.count(BananaPeel);
+                    Utilities.count(pointer);
                     break;
                 case 5:
-                    Utilities.search(BananaPeel);
+                    Utilities.search(pointer);
                     break;
                 case 6:
-                    BananaPeel = Edit.delete(BananaPeel);
+                    pointer = Edit.delete(pointer);
                     break;
                 case 7:
-                    BananaPeel = Utilities.sort(BananaPeel);
+                    pointer = Utilities.sort(pointer);
                     break;
                 case 8:
-                    BananaPeel = Utilities.edit(BananaPeel);
+                    pointer = Utilities.edit(pointer);
                     break;
+                case 9:
+                    pointer = Utilities.edit(pointer);
                 default:
                     print("ERROR 1: Did not understand input");
                     break;
@@ -89,7 +93,7 @@ public class Main {
                     print("I don't understand what you said, so loop again!\n ------");
                     break;
             }    
-            Edit.print(BananaPeel, "BananaPeel"); //Show node visually at end of loop
+            Edit.print(pointer, "BananaPeel"); //Show node visually at end of loop
             print("");
         } //looper ends
     }
