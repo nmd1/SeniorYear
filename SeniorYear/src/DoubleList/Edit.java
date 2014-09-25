@@ -1,8 +1,5 @@
-
-
 package DoubleList;
 
-import senioryear.*;
 import java.util.Scanner;
 import java.util.*;
 
@@ -96,6 +93,7 @@ public class Edit {
         String search = s.next();
         
         q = p;
+        Node j = p;
         
         if(search.charAt(0) == '1'){
             newNode.setNext(p);
@@ -105,17 +103,19 @@ public class Edit {
         
         //test to see if it exists:
         boolean loop = true;
-        Node j = p;
+        
         while(loop) {
             if(j.getPlanet().getName().equalsIgnoreCase(search)) {
                 loop = false;
+                break;
             } else {
                 if(j.getNext() == null){ 
                 System.out.println("Error 404: Planet not found"); 
                 return p;
                 }
-                j = j.getNext(); 
+                 
             }
+            j = j.getNext();
         }
         
         if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if the first item does not equal the search
@@ -127,16 +127,17 @@ public class Edit {
         }
         
             //if the next node is not earth   
-
+        
         
         }
         //q ends up referencing earth.
         
         //now q equals the node whose planet name is the one we're looking for
-        if(q.getNext().getPlanet().getName().equalsIgnoreCase(search)) {
+        if(q.getPlanet().getName().equalsIgnoreCase(search)) {
             q = q.getNext();
             //if the next planet name equals the search name
             newNode.setNext(q.getNext());
+            newNode.setPrevious(q);
             q.setNext(newNode);
             //node connection set up.
         } else {
@@ -220,6 +221,7 @@ public class Edit {
                 counter++;
             }
             j.setNext(q.getNext());
+            q.getNext().setPrevious(j);
         }
         // AS MR.BALCAR ABOUT THIS!!!!
         //advance p 
@@ -231,46 +233,47 @@ public class Edit {
         //q.setNext(p.getNext())
         return p;
     }
-
     public static void print(Node p){
         while(p != null) {
             System.out.println(p.getPlanet().toString());
             p = p.getNext();
         }
     }
+    public static void print2(Node p) {
+        while(p != null) {
+            if(p.getNext() != null && p.getPrevious() != null) {
+                System.out.println(p.next.getPlanet().toString());
+                System.out.println(p.previous.getPlanet().toString());
+            } else if(p.getNext() != null && p.getPrevious() == null) {
+                System.out.println(p.next.getPlanet().toString());
+            } else if(p.getNext() == null && p.getPrevious() != null) {
+                System.out.println(p.previous.getPlanet().toString());            
+            }
+            System.out.println("");
+        }
+    }
     public static void print(Node p, String s) {
         Node q = p;
         
         if(q == null) {
-            System.out.print("[Null]");
+            System.out.println("[Null]");
             return;
         }
         
         
         boolean flag = true;
-        System.out.print(s + "--> [null]");
+        System.out.print("{" + s +"} "+ " Null ");
         while(flag) {
-            if(q.getPrevious() != null) {
-                if(q.getNext() != null) {
-                    System.out.print("<--["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]-->" );
-                } else if(q.getNext() == null) {
-                    System.out.println("[Null]");
-                    flag = false; 
-                    break;
-                }                
-            } else {
-                if(q.getNext() != null){
-                System.out.print("["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]-->" );
-                } else if(q.getNext() == null) {
-                    System.out.println("[Null]");
-                    flag = false; 
-                    break;
-                }
-                
+            if(q.getNext() != null && q.getPrevious() != null) {
+                System.out.print("-->["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]<--" );
+            } else if(q.getNext() != null && q.getPrevious() == null) {
+                System.out.print("<--["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]<--" );
+            } else if(q.getNext() == null && q.getPrevious() != null) {
+                System.out.print("-->["+ q.getPlanet().getName() + "|" + q.getPlanet().getPlace() + "]--> Null" );
+                flag = false;
+                break;                
             }
-            q = q.getNext();
-        }
-        
-    }
-    
+        q = q.getNext();
+        } 
+    } 
 }

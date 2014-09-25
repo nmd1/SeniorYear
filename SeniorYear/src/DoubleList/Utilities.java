@@ -34,7 +34,6 @@ public class Utilities {
         }
         return p;
     }
-    
     public static Node count(Node p) {
         Node q = p;
         boolean loop = true;
@@ -56,8 +55,6 @@ public class Utilities {
         }
         return p;
     }
-    
-    
     public static Node sort(Node p) {
         //SEEING IF THE LIST IS EMPTY
         if(p == null) {
@@ -106,7 +103,8 @@ public class Utilities {
             pointer = next;
         }
  
-		
+	newHead.setPrevious(null);
+        newHead.getNext().setPrevious(newHead);
         //END SORT
         
         
@@ -116,7 +114,6 @@ public class Utilities {
         
         return newHead;
     }
-    
     public static Node edit(Node p) {
         if(p == null) {
             System.out.println("Nothing to edit");

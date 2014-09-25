@@ -1,9 +1,6 @@
 package DoubleList;
 
 import java.util.Scanner;
-import senioryear.Edit;
-import senioryear.Node;
-import senioryear.Utilities;
 
 public class Main {
     public static void main(String[] args) {
@@ -66,7 +63,7 @@ public class Main {
                     pointer = Utilities.edit(pointer);
                     break;
                 case 9:
-                    pointer = Utilities.edit(pointer);
+                    Edit.print2(pointer);
                 default:
                     print("ERROR 1: Did not understand input");
                     break;

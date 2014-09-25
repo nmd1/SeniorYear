@@ -31,7 +31,6 @@ public class Main {
             print("6- Delete");
             print("7- Sort");
             print("8- Edit");
-            print("9- Print next and previous");
             
 
             Scanner s = new Scanner(System.in);
