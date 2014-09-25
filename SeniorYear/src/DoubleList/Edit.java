@@ -98,6 +98,7 @@ public class Edit {
         if(search.charAt(0) == '1'){
             newNode.setNext(p);
             p = newNode;
+            p.getNext().setPrevious(p);
             return p;
         }
         
@@ -118,27 +119,26 @@ public class Edit {
             j = j.getNext();
         }
         
-        if(!(q.getPlanet().getName().equalsIgnoreCase(search))){ //if the first item does not equal the search
+        //the planet's name doesn't equal my test then
+        //if the first item does not equal the search
             
         //q = q.getNext();
-            
-        while( !(q.getNext().getPlanet().getName().equalsIgnoreCase(search))) {
+        //if the next node is not earth
+            //when the next planet's name doesn't equal test
+        while( !(q.getPlanet().getName().equalsIgnoreCase(search))) {
             q = q.getNext();
         }
-        
-            //if the next node is not earth   
-        
-        
-        }
+
         //q ends up referencing earth.
         
         //now q equals the node whose planet name is the one we're looking for
+
         if(q.getPlanet().getName().equalsIgnoreCase(search)) {
-            q = q.getNext();
             //if the next planet name equals the search name
             newNode.setNext(q.getNext());
             newNode.setPrevious(q);
             q.setNext(newNode);
+            
             //node connection set up.
         } else {
             System.out.println("ERROR 404: Not Found");
@@ -221,7 +221,7 @@ public class Edit {
                 counter++;
             }
             j.setNext(q.getNext());
-            q.getNext().setPrevious(j);
+            if(q.getNext() != null) q.getNext().setPrevious(j);
         }
         // AS MR.BALCAR ABOUT THIS!!!!
         //advance p 
@@ -242,14 +242,15 @@ public class Edit {
     public static void print2(Node p) {
         while(p != null) {
             if(p.getNext() != null && p.getPrevious() != null) {
-                System.out.println(p.next.getPlanet().toString());
                 System.out.println(p.previous.getPlanet().toString());
+                System.out.println(p.next.getPlanet().toString());
             } else if(p.getNext() != null && p.getPrevious() == null) {
                 System.out.println(p.next.getPlanet().toString());
             } else if(p.getNext() == null && p.getPrevious() != null) {
                 System.out.println(p.previous.getPlanet().toString());            
             }
             System.out.println("");
+            p = p.next;
         }
     }
     public static void print(Node p, String s) {

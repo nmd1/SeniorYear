@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("asdfhasdkl;");
         mainProgram();
         
     }
@@ -20,7 +19,7 @@ public class Main {
         while(looper) {
         
             
-            print("1- Insert at end");//kj
+            print("1- Insert at end");
             print("2- Insert Anywhere");
             print("3- Print");
             print("4- Count");
