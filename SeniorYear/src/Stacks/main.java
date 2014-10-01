@@ -33,8 +33,8 @@ public class main {
                     if(stat == 0) {
                         System.out.println("You didn't even do anything!");
                     } else {
-                    System.out.println("G'bye!");
-                    System.out.println("looped " + stat + " times");
+                        System.out.println("G'bye!");
+                        System.out.println("looped " + stat + " times");
                     }
                     looper = false;
                     break;
@@ -47,6 +47,7 @@ public class main {
         
     }
     public static int one(String s){
+        
         return 0;
     }
     public static int two(String s) {

@@ -34,7 +34,6 @@ public class Utilities {
         }
         return p;
     }
-    
     public static Node count(Node p) {
         Node q = p;
         boolean loop = true;

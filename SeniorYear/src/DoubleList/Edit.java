@@ -240,17 +240,42 @@ public class Edit {
         }
     }
     public static void print2(Node p) {
-        while(p != null) {
-            if(p.getNext() != null && p.getPrevious() != null) {
-                System.out.println(p.previous.getPlanet().toString());
-                System.out.println(p.next.getPlanet().toString());
-            } else if(p.getNext() != null && p.getPrevious() == null) {
-                System.out.println(p.next.getPlanet().toString());
-            } else if(p.getNext() == null && p.getPrevious() != null) {
-                System.out.println(p.previous.getPlanet().toString());            
+        Node q = p;
+        System.out.println(q.getPlanet().toString());
+        Scanner c = new Scanner(System.in);
+        boolean looper = true;
+        while(looper) {
+            System.out.println("N for next, P for previous and D to exit");
+            String choic = c.next();
+            char choice = choic.toUpperCase().charAt(0);
+            
+            switch(choice) {
+                case 'N':
+                    if(q.getNext() != null) {
+                        System.out.println(q.getNext().getPlanet().toString());
+                        q = q.getNext();
+                    } else {
+                        System.out.println("Error 902: There is no next node");
+                    }
+                    break;
+                case 'P':
+                    if(q.getPrevious() != null) {
+                        System.out.println(q.getPrevious().getPlanet().toString());
+                        q = q.getPrevious();
+                    } else {
+                        System.out.println("Error 902: There is no Previous node");
+                    }
+                    break;
+                case 'D':
+                    System.out.println("Goodbye.");
+                    looper = false;
+                    break;
+                default:
+                    System.out.println("Error 78: Not Understood. Try again.");
+                    break;
             }
-            System.out.println("");
-            p = p.next;
+            //loop
+            
         }
     }
     public static void print(Node p, String s) {
