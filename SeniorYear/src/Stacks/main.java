@@ -12,7 +12,6 @@ public class main {
         int stat = 0;
         while (looper) {
             Scanner s = new Scanner(System.in);
-            Stack<String> stk = new Stack<String>();
             String sentence = "I'm so fancy, you already know";
             String delimiter = ",.!? \n\t\r";
             StringTokenizer tokens = new StringTokenizer(sentence, delimiter);
@@ -24,7 +23,8 @@ public class main {
             int choice = s.nextInt();
             switch(choice) {
                 case '1':
-                    one("");
+                    String input = s.next();
+                    one(input);
                     break;
                 case '2':
                     two("");
@@ -46,10 +46,76 @@ public class main {
         }
         
     }
-    public static int one(String s){
+    public static String one(String input){
+        Stack<String> stack = new Stack<>();
+        StringTokenizer tokens = new StringTokenizer(input);
+        String op1 = null, op2 = null, error = null;
         
-        return 0;
+        while(tokens.hasMoreTokens()) {
+            String token = tokens.nextToken();
+            if(isOperand(token))
+                stack.push(token);
+            else if (isOperator(token)) {
+                if(! stack.empty()) {
+                    op2 = stack.pop();
+                    if(! stack.empty()) {
+                        op1 = stack.pop();
+                        String result = compute(op1, token, op2);
+                        if(result != null)
+                            stack.push(result);
+                        else
+                            error = "Error 0: Attempt to divide by Zero";
+                    } else 
+                        error = "Error 2: There wasn't a second Operand";
+                } else 
+                    error = "Error 1: There wasn't a first Operand";
+            } else 
+                error = "Error ?: Unknown Operator ";
+            if (stack.size() != 1)
+                error = "Error 23: There were nultiple numbers left in stack";
+            if (error != null) 
+                return error;
+            else 
+                return stack.pop();
+        }
+        return "Some weird error happened. Wut.";
     }
+    
+    private static boolean isOperand(String s) {
+        for(int i = 0; i < s.length(); i++)
+            if(! Character.isDigit(s.charAt(i)))
+                return false;   
+        return true;
+    }
+    private static boolean isOperator(String s) {
+        return s.equals("+") 
+               || s.equals("*") 
+               || s.equals("/") 
+               || s.equals("-") 
+               ||s.equals("^");
+    }
+    private static String compute(String op1, String op, String op2) {
+        int result = 0;
+        int firstnumb = Integer.parseInt(op1);
+        int secondnumb = Integer.parseInt(op2);
+        
+        if(op.equals("+"))
+            result = firstnumb + secondnumb;
+        else if (op.equals("*"))
+            result = firstnumb - secondnumb;
+        else if (op.equals("*"))
+            result = firstnumb * secondnumb;
+        else if(op.equals("/")) 
+            if(secondnumb == 0)
+                return null;
+            else
+                result = firstnumb / secondnumb;
+        else if(op.equals("^"))
+            result = (int)Math.pow(firstnumb, secondnumb);
+        return "" + result;
+        
+    }
+    
     public static int two(String s) {
         
         return 0;
