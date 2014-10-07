@@ -25,7 +25,7 @@ public class main {
                 case 1:
                     System.out.print("input postfix: ");
                     String input = s.nextLine();
-                    input = s.nextLine();
+                    input = s.nextLine(); //the fact that I need to do this doesn't make sense
                     System.out.println(one(input));
                     break;
                 case 2:
@@ -118,7 +118,18 @@ public class main {
     }
     
     public static int two(String s) {
+        //PEMDAS
+        //find the parenteticals first.
+        Stack<String> stack = new Stack<>();
+        StringTokenizer tokens = new StringTokenizer(s);
         
+        while(tokens.hasMoreTokens()) {
+             String coin = tokens.nextToken();
+             //should be able to account for 
+             //(4 + 2) + 2
+             //3 + (3 + 2)
+             //
+        }
         return 0;
     }
     
