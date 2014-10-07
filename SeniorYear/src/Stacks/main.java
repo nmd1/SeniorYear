@@ -3,7 +3,7 @@ import java.util.*;
 
 
 public class main {
-    //Infix: 3 + 5   \\ 3 + 5 * 2
+    //Infix: 3 + 5   \\ 3 + 5 * 2 ( = 13)
     //prefix: + 3 5  \\ + 3 * 5 2
     //postfix 3 5 +  \\ 3 5 2 * +
     //
@@ -22,14 +22,16 @@ public class main {
             print("3- Exit");
             int choice = s.nextInt();
             switch(choice) {
-                case '1':
-                    String input = s.next();
-                    one(input);
+                case 1:
+                    System.out.print("input postfix: ");
+                    String input = s.nextLine();
+                    input = s.nextLine();
+                    System.out.println(one(input));
                     break;
-                case '2':
+                case 2:
                     two("");
                     break;
-                case '3':
+                case 3:
                     if(stat == 0) {
                         System.out.println("You didn't even do anything!");
                     } else {
@@ -71,14 +73,13 @@ public class main {
                     error = "Error 1: There wasn't a first Operand";
             } else 
                 error = "Error ?: Unknown Operator ";
+        }
             if (stack.size() != 1)
                 error = "Error 23: There were nultiple numbers left in stack";
             if (error != null) 
                 return error;
             else 
                 return stack.pop();
-        }
-        return "Some weird error happened. Wut.";
     }
     
     private static boolean isOperand(String s) {
@@ -101,7 +102,7 @@ public class main {
         
         if(op.equals("+"))
             result = firstnumb + secondnumb;
-        else if (op.equals("*"))
+        else if (op.equals("-"))
             result = firstnumb - secondnumb;
         else if (op.equals("*"))
             result = firstnumb * secondnumb;
