@@ -120,15 +120,33 @@ public class main {
     public static int two(String s) {
         //PEMDAS
         //find the parenteticals first.
+        String error = "No error";
         Stack<String> stack = new Stack<>();
         StringTokenizer tokens = new StringTokenizer(s);
         
+        int count1 = 0, count2 = 0;
+        for(int i =0; i < s.length(); i++)
+            if(s.charAt(i) == '(')
+                count1++;
+        for(int i =0; i < s.length(); i++)
+            if(s.charAt(i) == ')')
+                count2++;
+        
+        if(count1 == 0 && count2 == 0) {
+            //no paranthesis....convert accordingly.
+        } else if(count1 > count2) {
+            error = "You open more parenthesis than you close. Close some";
+        } else if()
+        
         while(tokens.hasMoreTokens()) {
-             String coin = tokens.nextToken();
-             //should be able to account for 
-             //(4 + 2) + 2
-             //3 + (3 + 2)
-             //
+            String coin = tokens.nextToken();
+            //should be able to account for 
+            //(4 + 2) + 2
+            //3 + (3 + 2)
+            //3 + (3 + 2) + 3
+            //2 + (3 + 2 + 2) + 1
+            if(coin.contains("(")) {
+            }         
         }
         return 0;
     }
