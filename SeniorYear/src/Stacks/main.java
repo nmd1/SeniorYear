@@ -135,8 +135,16 @@ public class main {
         if(count1 == 0 && count2 == 0) {
             //no paranthesis....convert accordingly.
         } else if(count1 > count2) {
-            error = "You open more parenthesis than you close. Close some";
-        } else if()
+            error = "(You open more parenthesis than you close. Close some";
+        } else if(count2 > count1) {
+            error = "You close more parenthesis than you open. Get rid of some)";
+        } else if (count1 == count2) {
+            //ok, here we know that there are parentehsis in the string
+            //from count we know how many sets of parethesis we have.
+            //now we should start off the string stack with the values
+            //
+            
+        }
         
         while(tokens.hasMoreTokens()) {
             String coin = tokens.nextToken();
