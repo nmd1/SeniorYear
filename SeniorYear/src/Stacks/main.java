@@ -55,7 +55,7 @@ public class main {
         
         while(tokens.hasMoreTokens()) {
             String token = tokens.nextToken();
-            if(isOperand(token))
+            if(isNumber(token))
                 stack.push(token);
             else if (isOperator(token)) {
                 if(! stack.empty()) {
@@ -82,7 +82,11 @@ public class main {
                 return stack.pop();
     }
     
-    private static boolean isOperand(String s) {
+    private static boolean isNumber(String s) {
+        if(isOperator(s)) return false;
+        double k = Double.parseDouble(s);
+        if( k < 0) return true;
+        
         for(int i = 0; i < s.length(); i++)
             if(! Character.isDigit(s.charAt(i)))
                 return false;   
@@ -117,13 +121,23 @@ public class main {
         
     }
     
+    public  int precedence(String s) {
+        if(s.equals("+") || s.equals("+"))
+            return 1;
+        if(s.equals("*") || s.equals("/"))
+            return 2;
+        if(s.equals("^") || s.equals(s))
+            return 3;
+        else return 0;
+    }
+    
     public static int two(String s) {
-        //PEMDAS
         //find the parenteticals first.
         String error = "No error";
         Stack<String> stack = new Stack<>();
         StringTokenizer tokens = new StringTokenizer(s);
         
+        //check for partenthesis 
         int count1 = 0, count2 = 0;
         for(int i =0; i < s.length(); i++)
             if(s.charAt(i) == '(')
@@ -131,14 +145,29 @@ public class main {
         for(int i =0; i < s.length(); i++)
             if(s.charAt(i) == ')')
                 count2++;
+        //end CHECK
         
+        String coin = tokens.nextToken();
+        String builder = "";
         if(count1 == 0 && count2 == 0) {
             //no paranthesis....convert accordingly.
+            if(isNumber(coin)) {
+                builder = builder + coin + " ";
+            } else if (isOperator(coin)){
+                if(!stack.empty()) stack.push(coin);
+                else {
+                    String popped = stack.peek();
+                    if(precedence(popped) > precedence(coin)) {
+                        
+                    }
+                }
+            }
         } else if(count1 > count2) {
             error = "(You open more parenthesis than you close. Close some";
         } else if(count2 > count1) {
             error = "You close more parenthesis than you open. Get rid of some)";
         } else if (count1 == count2) {
+            
             //ok, here we know that there are parentehsis in the string
             //from count we know how many sets of parethesis we have.
             //now we should start off the string stack with the values
@@ -147,13 +176,15 @@ public class main {
         }
         
         while(tokens.hasMoreTokens()) {
-            String coin = tokens.nextToken();
+            String coined = tokens.nextToken();
             //should be able to account for 
             //(4 + 2) + 2
             //3 + (3 + 2)
             //3 + (3 + 2) + 3
             //2 + (3 + 2 + 2) + 1
-            if(coin.contains("(")) {
+            if(coined.contains("(")) {
+                coined = tokens.nextToken();
+                
             }         
         }
         return 0;
