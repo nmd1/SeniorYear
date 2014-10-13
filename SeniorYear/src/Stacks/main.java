@@ -121,14 +121,14 @@ public class main {
         
     }
     
-    public  int precedence(String s) {
+    public static int precedence(String s) {
         if(s.equals("+") || s.equals("+"))
             return 1;
         if(s.equals("*") || s.equals("/"))
             return 2;
-        if(s.equals("^") || s.equals(s))
+        if(s.equals("^"))
             return 3;
-        else return 0;
+        else return 99;
     }
     
     public static int two(String s) {
@@ -153,13 +153,16 @@ public class main {
             //no paranthesis....convert accordingly.
             if(isNumber(coin)) {
                 builder = builder + coin + " ";
-            } else if (isOperator(coin)){
-                if(!stack.empty()) stack.push(coin);
-                else {
-                    String popped = stack.peek();
-                    if(precedence(popped) > precedence(coin)) {
-                        
+            } else if (isOperator(coin)){ //if its an operator
+                if(stack.empty()) stack.push(coin); //if the stack is empty
+                else { //if its not empty
+                    String popped = stack.peek(); //look at the first 
+                    while(precedence(popped) >= precedence(coin)) {
+                        popped = stack.pop();
+                        builder = builder + popped + " ";
+                        popped = stack.peek();
                     }
+                    stack.add(coin);
                 }
             }
         } else if(count1 > count2) {
