@@ -29,7 +29,10 @@ public class main {
                     System.out.println(one(input));
                     break;
                 case 2:
-                    two("");
+                    System.out.println("Input infix: ");
+                    String input2 = s.nextLine();
+                    input2 = s.nextLine();
+                    two(input2);
                     break;
                 case 3:
                     if(stat == 0) {
@@ -147,23 +150,35 @@ public class main {
                 count2++;
         //end CHECK
         
+        System.out.println(count1 + "\n" + count2);
+        
         String coin = tokens.nextToken();
         String builder = "";
         if(count1 == 0 && count2 == 0) {
+            while(tokens.hasMoreTokens()) {
             //no paranthesis....convert accordingly.
+            System.out.println("Went into the right if");
             if(isNumber(coin)) {
                 builder = builder + coin + " ";
+                System.out.println("the coin is a number" + builder);
             } else if (isOperator(coin)){ //if its an operator
-                if(stack.empty()) stack.push(coin); //if the stack is empty
+                if(stack.empty()) stack.push(coin); //and if the stack is empty
+                
                 else { //if its not empty
                     String popped = stack.peek(); //look at the first 
+                    System.out.println("Popped: " + popped);
                     while(precedence(popped) >= precedence(coin)) {
                         popped = stack.pop();
                         builder = builder + popped + " ";
                         popped = stack.peek();
                     }
-                    stack.add(coin);
+                    stack.add(coin); 
+                    builder = builder + popped + " ";
+                    
                 }
+            }
+            coin = tokens.nextToken();
+            tokens.nextToken();
             }
         } else if(count1 > count2) {
             error = "(You open more parenthesis than you close. Close some";
@@ -177,7 +192,8 @@ public class main {
             //
             
         }
-        
+        System.out.println(builder);
+        /*
         while(tokens.hasMoreTokens()) {
             String coined = tokens.nextToken();
             //should be able to account for 
@@ -189,7 +205,8 @@ public class main {
                 coined = tokens.nextToken();
                 
             }         
-        }
+        }*/
+        
         return 0;
     }
     
