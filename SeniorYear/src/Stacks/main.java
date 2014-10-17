@@ -3,10 +3,7 @@ import java.util.*;
 
 
 public class main {
-    //Infix: 3 + 5   \\ 3 + 5 * 2 ( = 13)
-    //prefix: + 3 5  \\ + 3 * 5 2
-    //postfix 3 5 +  \\ 3 5 2 * +
-    //
+
     public static void main(String[] args) {
         boolean looper = true;
         int stat = 0;
@@ -32,7 +29,9 @@ public class main {
                     System.out.println("Input infix: ");
                     String input2 = s.nextLine();
                     input2 = s.nextLine();
-                    two(input2);
+                    String wer = convertToPostfix(input2);
+                    System.out.println("The converted infix" + wer);
+                    System.out.println("The Answer: " + one(wer));
                     break;
                 case 3:
                     if(stat == 0) {
@@ -87,6 +86,8 @@ public class main {
     
     private static boolean isNumber(String s) {
         if(isOperator(s)) return false;
+        if(s.equals("(") || s.equals(")")) return false;
+        
         double k = Double.parseDouble(s);
         if( k < 0) return true;
         
@@ -133,86 +134,86 @@ public class main {
             return 3;
         else return 99;
     }
-    
-    public static int two(String s) {
-        //find the parenteticals first.
-        String error = "No error";
-        Stack<String> stack = new Stack<>();
-        StringTokenizer tokens = new StringTokenizer(s);
-        
-        //check for partenthesis 
-        int count1 = 0, count2 = 0;
-        for(int i =0; i < s.length(); i++)
-            if(s.charAt(i) == '(')
-                count1++;
-        for(int i =0; i < s.length(); i++)
-            if(s.charAt(i) == ')')
-                count2++;
-        //end CHECK
-        
-        System.out.println(count1 + "\n" + count2);
-        
-        String coin = tokens.nextToken();
-        String builder = "";
-        if(count1 == 0 && count2 == 0) {
-            while(tokens.hasMoreTokens()) {
-            //no paranthesis....convert accordingly.
-            System.out.println("Went into the right if");
-            if(isNumber(coin)) {
-                builder = builder + coin + " ";
-                System.out.println("the coin is a number" + builder);
-            } else if (isOperator(coin)){ //if its an operator
-                if(stack.empty()) stack.push(coin); //and if the stack is empty
-                
-                else { //if its not empty
-                    String popped = stack.peek(); //look at the first 
-                    System.out.println("Popped: " + popped);
-                    while(precedence(popped) >= precedence(coin)) {
-                        popped = stack.pop();
-                        builder = builder + popped + " ";
-                        popped = stack.peek();
+       private static boolean isOperator(char c) { // Tell whether c is an operator.
+        return c == '+'  ||  c == '-'  ||  c == '*'  ||  c == '/'  ||  c == '^'
+           || c=='(' || c==')';
+   }//end isOperator
+
+ 
+
+   private static boolean isSpace(char c) {  // Tell whether c is a space.
+
+     return (c == ' ');
+   
+   }//end isSpaces
+
+
+   private static  boolean lowerPrecedence(char op1, char op2) {  
+      switch (op1) {
+         case '+':
+         case '-':
+            return !(op2=='+' || op2=='-') ;
+
+         case '*':
+         case '/':
+            return op2=='^' || op2=='(';
+
+         case '^':
+            return op2=='(';
+
+         case '(': return true;
+
+         default:  // (shouldn't happen)
+            return false;
+      }
+ 
+   } // end lowerPrecedence
+
+
+// Method to convert infix to postfix:
+
+   public static String convertToPostfix(String infix) {
+      // Return a postfix representation of the expression in infix.
+
+     Stack operatorStack = new Stack();  //the stack
+     char c;      
+   
+     StringTokenizer parser = new StringTokenizer(infix,"+-*/^() ",true);
+     StringBuffer postfix = new StringBuffer(infix.length());  // result
+        while (parser.hasMoreTokens()) {     
+                                            
+           String token = parser.nextToken();  
+           c = token.charAt(0);      
+           if ((token.length() == 1) && isOperator(c)) {  
+              while (!operatorStack.empty() &&
+                 !lowerPrecedence(((String)operatorStack.peek()).charAt(0), c))
+                 postfix.append(" ").append((String)operatorStack.pop());
+
+              if (c==')') {
+                 // Output the remaining operators in the parenthesized part.
+                    String operator = (String)operatorStack.pop();
+                    while (operator.charAt(0)!='(') {
+                       postfix.append(" ").append(operator);
+                       operator = (String)operatorStack.pop();  
                     }
-                    stack.add(coin); 
-                    builder = builder + popped + " ";
-                    
-                }
-            }
-            coin = tokens.nextToken();
-            tokens.nextToken();
-            }
-        } else if(count1 > count2) {
-            error = "(You open more parenthesis than you close. Close some";
-        } else if(count2 > count1) {
-            error = "You close more parenthesis than you open. Get rid of some)";
-        } else if (count1 == count2) {
-            
-            //ok, here we know that there are parentehsis in the string
-            //from count we know how many sets of parethesis we have.
-            //now we should start off the string stack with the values
-            //
-            
-        }
-        System.out.println(builder);
-        /*
-        while(tokens.hasMoreTokens()) {
-            String coined = tokens.nextToken();
-            //should be able to account for 
-            //(4 + 2) + 2
-            //3 + (3 + 2)
-            //3 + (3 + 2) + 3
-            //2 + (3 + 2 + 2) + 1
-            if(coined.contains("(")) {
-                coined = tokens.nextToken();
-                
-            }         
-        }*/
-        
-        return 0;
-    }
-    
+              }
+              else
+                 operatorStack.push(token);
+           }
+           else if ( (token.length() == 1) && isSpace(c) ) { 
+           }
+           else { 
+             postfix.append(" ").append(token);  
+           }
+ 
+         }
+        while (!operatorStack.empty())
+           postfix.append(" ").append((String)operatorStack.pop());
+        return postfix.toString();
+
+
+   }
     public static void print(String s) {
         System.out.println(s);
     }
-    //* + 3 5 2
-    //3 5 2
 }
