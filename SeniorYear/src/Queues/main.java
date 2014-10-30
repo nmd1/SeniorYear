@@ -12,6 +12,7 @@ public class main {
     }
     
     public void main() {
+        int time = 1000;
         boolean loop = true;
         String[] examRoom = {"", "", "", ""};
         Queue<String> queue = new LinkedList<>();
@@ -41,14 +42,18 @@ public class main {
                     } catch(java.lang.NullPointerException e) {
                         System.out.println("Whoops");
                     }
+                    time = 1000;
                     break;
                 case 2:
                     if(queue.isEmpty()) {print("No one is here...."); break;}
                     int wait = 5;
+                    int incre = 0;
                     for(String names : queue) {
                         System.out.println(names + " has to wait for " + wait + " minutes");
                         wait = wait + 5;
+                        incre++;
                     }
+                    time = (int)(1000 * (Math.log(incre) + 1));
                     break;
                 case 3:
                     System.out.print("Name please?: "); 
@@ -75,6 +80,7 @@ public class main {
                     }
                     
                     if(nameExist) System.out.println("We have no records of '" + guy + "'.");
+                    time = 1000;
                     break; 
                 case 4:
                     System.out.print("Name please?: "); 
@@ -128,7 +134,7 @@ public class main {
                         if(sectionB) {
                             System.out.println(", but " + person + "is in the WAIT room");
                         } else {
-                            System.out.println("; there is no '" + person + ".'");
+                            System.out.println("; there is no '" + person + "'.");
                         }
                     }
                     
@@ -145,6 +151,7 @@ public class main {
                     break;
 
             }//end switch
+            
             try{
                 Thread.sleep(1000);
             } catch (InterruptedException  e) {
