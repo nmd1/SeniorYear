@@ -18,10 +18,10 @@ public class main {
         while(loop) {
 
             print("The WAIT room");
-            print("1) Status of exam rooms");
-            print("2) Print wait room and wait times");
-            print("3) Print individual status (Wait time)");
-            print("4) Check in");
+            print("1) Status of exam rooms"); //empty/half/full
+            print("2) Print wait room and wait times");//empty/half/full (names)
+            print("3) Print individual status (Wait time)");//not in office/in exam (say)/in waiting room (names)
+            print("4) Check in");//
             print("5) Check out");
             print("6) End program");
 
@@ -31,13 +31,13 @@ public class main {
                 case 1:
                     try {
                     System.out.println("Exam room 1 is " + 
-                            (examRoom[0].isEmpty() ? "Empty" : "currently occupied by" + examRoom[0]));
+                            (examRoom[0].isEmpty() ? "Empty" : "currently occupied by " + examRoom[0]));
                     System.out.println("Exam room 2 is " + 
-                            (examRoom[1].isEmpty() ? "Empty" : "currently occupied by" + examRoom[1]));
+                            (examRoom[1].isEmpty() ? "Empty" : "currently occupied by " + examRoom[1]));
                     System.out.println("Exam room 3 is " + 
-                            (examRoom[2].isEmpty() ? "Empty" : "currently occupied by" + examRoom[2]));
+                            (examRoom[2].isEmpty() ? "Empty" : "currently occupied by " + examRoom[2]));
                     System.out.println("Exam room 4 is " + 
-                            (examRoom[3].isEmpty() ? "Empty" : "currently occupied by" + examRoom[3]));
+                            (examRoom[3].isEmpty() ? "Empty" : "currently occupied by " + examRoom[3]));
                     } catch(java.lang.NullPointerException e) {
                         System.out.println("Whoops");
                     }
@@ -51,6 +51,30 @@ public class main {
                     }
                     break;
                 case 3:
+                    System.out.print("Name please?: "); 
+                    String guy = c.nextLine();
+                    boolean nameExist = true;
+                    int counter2 = -1;
+                    for(String room : examRoom) {
+                        counter2++;
+                        if(room.equalsIgnoreCase(guy)) {
+                            System.out.println(guy + " is currently in exam room " + (counter2 + 1));
+                            nameExist = false;
+                            break;
+                        }
+                    }
+                    
+                    int cou = 0;
+                    for(String names : queue) {
+                        if(names.equalsIgnoreCase(guy)){
+                            System.out.println(guy + " is in the wait room and must wait " + ((cou + 1) * 5) + " minutes");
+                            nameExist = false;
+                            break;
+                        }
+                        cou++;
+                    }
+                    
+                    if(nameExist) System.out.println("We have no records of '" + guy + "'.");
                     break; 
                 case 4:
                     System.out.print("Name please?: "); 
@@ -64,7 +88,6 @@ public class main {
                     }
                     if(count != -1) {
                         examRoom[count] = name; //print(name + " is in " + count);
-                        
                     } else {
                         queue.add(name); //print("Please have a seat in...THE WAIT ROOM");
                     }
@@ -73,22 +96,42 @@ public class main {
                 case 5:
                     System.out.print("Who are you?: ");
                     String person = c.nextLine();
-                    boolean sectionB = false;
-                    for(String names: queue) {
-                        if(person.equalsIgnoreCase(names)) {
-                            sectionB = true;
+                    
+                    int counter = -1;
+                    boolean end5 = false;
+                    for(String room : examRoom) {
+                        counter++;
+                        if(room.equalsIgnoreCase(person)) {
+                            //YOU FOUND 'EM
+                            examRoom[counter] = "";
+                            System.out.println(person + " has left exam room " + (counter + 1));
+                            if(!queue.isEmpty()) {
+                                examRoom[counter] = queue.remove();
+                                System.out.println(examRoom[counter] + " has taken " + person 
+                                        + "'s place in exam room " + (counter + 1));
+                            }
+                            end5 = true;
+                            break;
                         }
                     }
-                    if(sectionB) {
-                        int count = ///THIS IS WHERE I STOPPED WORKING
+                    
+                    
+                    if(!end5) {
+                        System.out.print(person + " is not in any exam room");
+                        boolean sectionB = false;
                         for(String names: queue) {
                             if(person.equalsIgnoreCase(names)) {
-                                
+                                sectionB = true;
                             }
+                        }    
+
+                        if(sectionB) {
+                            System.out.println(", but " + person + "is in the WAIT room");
+                        } else {
+                            System.out.println("; there is no '" + person + ".'");
                         }
-                    } else {
-                        System.out.print("There is no '" + person + "' on record");
                     }
+                    
                     break; 
                 case 6:
                     loop = false;
