@@ -5,32 +5,28 @@
  */
 package BinaryTree;
 
-public class Node {
-    Node left;
-    Node right;
-    Object o;
+public class Treenode {
+    Treenode left;
+    Treenode right;
+    String o;
     
-    public Node getLeft() {
+    public Treenode getLeft() {
         return left;
     }
-    public Node getRight() {
+    public Treenode getRight() {
         return right;
     }
-    public Object getObject() {
-        return o();     
+    public String getString() {
+        return o;     
     }
 
-    private Object o() {
-        return right;
-    }
-    
-    public void setLeft(Node l) {
+    public void setLeft(Treenode l) {
         left = l;
     }
-    public void setRight(Node r) {
+    public void setRight(Treenode r) {
         right = r;
     }
-    public void setObject(Object or){
+    public void setString(String or){
         o = or;
     }
 }

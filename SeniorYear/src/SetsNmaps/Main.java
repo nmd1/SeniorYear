@@ -31,9 +31,7 @@ public class Main {
         }
         System.out.println();
         boolean stop = true;
-        while(stop) {
-
-            p("The Set Program");
+        p("The Set Program");
             p("1- Union");
             p("2- Intersection");
             p("3- Difference (A-B)");  
@@ -47,8 +45,13 @@ public class Main {
             p("11- Subtract A");
             p("12- Subtract B");
             p("0- Exit");
+        
+        while(stop) {
+
             
-            p("Input your numb here: ");
+            System.out.println();
+            System.out.print("Select Number from Menu ");
+            p("");
             int j = c.nextInt();
 
             switch(j) {
@@ -105,6 +108,7 @@ public class Main {
     }
     
     public static void setSet(HashSet A) {
+        A.clear();
         Scanner c = new Scanner(System.in);
         String choice = "";
         int i = 0;
@@ -142,8 +146,10 @@ public class Main {
     }
     
     public static void subtraction(HashSet<Integer> A, HashSet<Integer> B) {
-        HashSet<Integer> temp = A;
-        for(int a : temp) {
+        HashSet<Integer> temp = new HashSet<>();
+        copy(A, temp);
+        
+        for(int a : A) {
             if(B.contains(a)) {
                 temp.remove(a);
             }
@@ -185,17 +191,28 @@ public class Main {
         print(A);
     }
     
+    public static void copy(HashSet<Integer> from, HashSet<Integer> to) {
+        to.clear();
+        for(int a : from) {
+            to.add(a);
+        }
+        
+    }
+    
     public static void subtract(HashSet<Integer> A) {
         Scanner c = new Scanner(System.in);
-        System.out.print("Tyoe in number to subtract: ");
+        System.out.print("Type in number to subtract: ");
         String toadd = c.nextLine();
+        HashSet<Integer> temp = new HashSet<>();
+        copy(A, temp);
+        
         int t;
         boolean removed = false;
         try {
            t = Integer.parseInt(toadd); 
            for(int w : A) {
                 if(w == t) {
-                    A.remove(w);
+                    temp.remove(w);
                     removed = true;
                 }
             }
@@ -204,7 +221,7 @@ public class Main {
            } else {
                System.out.println("Could not remove");
            }
-           print(A);
+           print(temp);
         } catch (java.lang.NumberFormatException e) {
             System.out.println("Format Error");
         }
