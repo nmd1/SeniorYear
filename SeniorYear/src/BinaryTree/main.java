@@ -90,6 +90,9 @@ public class main {
                     }
                     break; 
                 case 7:
+                    Treenode replace = makeNode("Replacement Node: ");
+                    Treenode editor = makeNode("Insert node to edit: ");
+                    search(root, editor);
                     break;
                 case 8:
                     break;
@@ -213,6 +216,7 @@ public class main {
         return root;
     }
     
+    
     public static Treenode postOrder(Treenode root) {
         if(root == null) {
             return root;
@@ -258,9 +262,70 @@ public class main {
         return root;
     }
     
+    public static Treenode edit(Treenode root, Treenode search, Treenode replace) {
+        String top = root.getString();
+        String test = search.getString();
+        
+        int value = top.compareToIgnoreCase(test); 
+        
+        if(value < 0) {
+            //test = W
+            //top = A
+            //So, test needs to go to the left
+            
+            if(root.getLeft() == null) {
+                return root;
+            } else if(root.getLeft().getString().equalsIgnoreCase(test)) {
+                root.setString(editor(root));
+                return root;
+            } else {
+                search(root.getLeft(), search); 
+            }
+            
+        } else if (value > 0) {
+            //test = A
+            //top = W
+            //so, test needs to go to the right
+            
+            if(root.getRight() == null) {
+                return root;
+            } else if(root.getRight().getString().equalsIgnoreCase(test)) {
+                root.setString(editor(root));
+                return root;
+            } else {
+                search(root.getRight(), search); 
+            }
+        } else if (value == 0) {
+            root.setString(editor(root));
+            return root;
+        }
+        pl("Does not exist in tree.");
+        return root;
+    }
+    
+    private static String editor(Treenode t) {
+        System.out.println("Current node has string '" + t.getString()+ "'");
+        pl("Set new String that's greater than '" +t.getLeft()+"' but less than '"+t.getRight()+"': ");
+        Scanner c = new Scanner(System.in);
+        String replace = c.nextLine();
+        int value = t.getString().compareToIgnoreCase(replace);
+        //-1 when t.getString (A) > replace (Z)
+        //1 when t.getString (Z) < replace (A)
+        //0 when equal
+        ///CONTINUE HERE  PLEEZE
+        return replace;
+    }//replace TREENODE with STRING in the constructor.
     public static void printTree(Treenode root) {
         
         pl("\t\t" + root.getString());
     }
-}
+    
+    /*public static Treenode delete(Treenode root, Treenode delete) {
+        
+    }
+    private static Treenode find(Treenode f){
+        
+    } */
+    //http://www.algolist.net/Data_structures/Binary_search_tree/Removal
+
 //yams  salad  kettles  lemons  limes  jam  jelly  grapes  cherries  clams  banana  oranges  apples
